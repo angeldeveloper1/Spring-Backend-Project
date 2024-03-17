@@ -1,9 +1,6 @@
 package com.biblioteca.perfil;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 @Entity
@@ -11,6 +8,14 @@ import java.util.Objects;
 public class Perfil {
     @Id
     @Column(name = "id_perfil")
+    @SequenceGenerator(
+            sequenceName = "sequence_perfil",
+            name = "sequence_perfil"
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "sequence_perfil"
+    )
     Long id;
     @Column(name = "name", nullable = false, length = 50)
     String name;

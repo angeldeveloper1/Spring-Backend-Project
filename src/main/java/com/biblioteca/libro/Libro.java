@@ -1,9 +1,6 @@
 package com.biblioteca.libro;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
@@ -12,6 +9,14 @@ import java.util.Objects;
 public class Libro {
     @Id
     @Column(name = "id_libro")
+    @SequenceGenerator(
+            sequenceName = "sequence_libro",
+            name = "sequence_libro"
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "sequence_libro"
+    )
     private Long id;
     @Column(name = "titulo", nullable = false, length = 100, unique = true)
     private String titulo;

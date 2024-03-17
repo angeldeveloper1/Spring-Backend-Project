@@ -1,9 +1,6 @@
 package com.biblioteca.prestamo;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 @Entity
@@ -11,6 +8,14 @@ import java.util.Objects;
 public class Prestamo {
     @Id
     @Column(name = "id_prestamo")
+    @SequenceGenerator(
+            sequenceName = "sequence_prestamo",
+            name = "sequence_prestamo"
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "sequence_prestamo"
+    )
     private Long id;
     @Column(name = "devuelto", nullable = false)
     private boolean devuelto;

@@ -1,9 +1,6 @@
 package com.biblioteca.usuario;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -12,6 +9,14 @@ import java.util.Objects;
 public class Usuario {
     @Id
     @Column(name = "id_usuario")
+    @SequenceGenerator(
+            sequenceName = "sequence_usuario",
+            name = "sequence_usuario"
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "sequence_usuario"
+    )
     private Long id;
     @Column(name = "name", nullable = false, length = 50, unique = true)
     private String name;
