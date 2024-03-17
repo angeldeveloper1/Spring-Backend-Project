@@ -1,13 +1,25 @@
 package com.biblioteca.usuario;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.time.LocalDate;
 import java.util.Objects;
-
+@Entity
+@Table(name = "usuario")
 public class Usuario {
+    @Id
+    @Column(name = "id_usuario")
     private Long id;
+    @Column(name = "name", nullable = false, length = 50, unique = true)
     private String name;
+    @Column(name = "email", nullable = false, length = 300, unique = true)
     private String email;
+    @Column(name = "birthdate")
     private LocalDate birthDate;
+    @Column(name = "password", nullable = false, length = 20, unique = true)
     private String password;
 
     public Usuario() {

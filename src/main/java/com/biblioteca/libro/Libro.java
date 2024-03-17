@@ -1,10 +1,21 @@
 package com.biblioteca.libro;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.util.Objects;
 
+@Entity
+@Table(name = "libro")
 public class Libro {
+    @Id
+    @Column(name = "id_libro")
     private Long id;
+    @Column(name = "titulo", nullable = false, length = 100, unique = true)
     private String titulo;
+    @Column(name = "autor", nullable = false, length = 100)
     private String autor;
 
     public Libro() {

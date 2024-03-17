@@ -1,10 +1,18 @@
 package com.biblioteca.prestamo;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.util.Objects;
-
+@Entity
+@Table(name = "prestamo")
 public class Prestamo {
+    @Id
+    @Column(name = "id_prestamo")
     private Long id;
-
+    @Column(name = "devuelto", nullable = false)
     private boolean devuelto;
 
     public Prestamo() {

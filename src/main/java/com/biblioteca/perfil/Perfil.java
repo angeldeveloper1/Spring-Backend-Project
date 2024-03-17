@@ -1,11 +1,22 @@
 package com.biblioteca.perfil;
 
-import java.util.Objects;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+import java.util.Objects;
+@Entity
+@Table(name = "perfil")
 public class Perfil {
+    @Id
+    @Column(name = "id_perfil")
     Long id;
+    @Column(name = "name", nullable = false, length = 50)
     String name;
+    @Column(name = "telefono", nullable = true, length = 20, unique = true)
     String telefono;
+    @Column(name = "puntos_premios", nullable = false)
     Long puntosPremios;
 
     public Perfil() {
