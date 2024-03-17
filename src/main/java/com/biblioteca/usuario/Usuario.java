@@ -24,7 +24,7 @@ public class Usuario {
     private String email;
     @Column(name = "birthdate")
     private LocalDate birthDate;
-    @Column(name = "password", nullable = false, length = 20, unique = true)
+    @Column(name = "password", nullable = false, length = 20)
     private String password;
 
     public Usuario() {
