@@ -1,5 +1,7 @@
 package com.biblioteca.perfil;
 
+import com.biblioteca.usuario.Usuario;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -24,6 +26,9 @@ public class Perfil {
     @Column(name = "puntos_premios", nullable = false)
     Long puntosPremios;
 
+    @JsonIgnore
+    @OneToOne(mappedBy = "perfil")
+    private Usuario usuario;
     public Perfil() {
     }
 

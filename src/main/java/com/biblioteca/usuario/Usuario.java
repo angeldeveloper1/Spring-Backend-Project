@@ -1,5 +1,6 @@
 package com.biblioteca.usuario;
 
+import com.biblioteca.perfil.Perfil;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -27,6 +28,14 @@ public class Usuario {
     @Column(name = "password", nullable = false, length = 20)
     private String password;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(
+            name = "id_perfil",
+            referencedColumnName = "id_perfil",
+            unique = true
+    )
+    private Perfil perfil;
+
     public Usuario() {
     }
     public Usuario(Long id, String name, String email, LocalDate birthDate, String password) {
@@ -35,6 +44,14 @@ public class Usuario {
         this.email = email;
         this.birthDate = birthDate;
         this.password = password;
+    }
+
+    public Perfil getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
     }
 
     public Long getId() {
