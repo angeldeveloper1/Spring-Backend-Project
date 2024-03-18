@@ -23,10 +23,25 @@ public class UsuarioController {
     public Page<Usuario> getUsuarios(@PageableDefault(size = 5, page = 0)Pageable pageable){
         return usuarioService.findAllUsuarios(pageable);
     }
+    @GetMapping("{id}")
+    public Usuario getUsuario(@PathVariable Long id){
+        return usuarioService.getUsuario(id);
+    }
 
     @PostMapping
     public ResponseEntity<Long> createUsuario(@RequestBody Usuario usuario) {
         Long idUsuario = usuarioService.createUsuario(usuario);
         return new ResponseEntity<>(idUsuario, HttpStatus.CREATED);
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteUsuario(@PathVariable Long id){
+        usuarioService.deleteUsuario(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @PutMapping("{id}")
+    public Usuario updateUsuario(@PathVariable Long id, @RequestBody Usuario usuario){
+        return usuarioService.updateUsuario(id, usuario);
+    }
 }
+
