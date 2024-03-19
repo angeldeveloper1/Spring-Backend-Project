@@ -52,13 +52,14 @@ public class PerfilService {
         return id;
     }
 
-    public void deletePerfil(Long idPerfil) {
-        LOGGER.info("Deleting Perfil with ID {}",idPerfil);
-        boolean idExists = perfilRepository.existsById(idPerfil);
+    public void deletePerfil(Long id) {
+        LOGGER.info("Deleting Perfil with ID {}",id);
+        boolean idExists = perfilRepository.existsById(id);
         if (!idExists){
-            LOGGER.warn("Id {} does not exists.",idPerfil);
-            throw new NoSuchElementException("Perfil with id: " +idPerfil + " does not exist");
+            LOGGER.warn("Id {} does not exists.",id);
+            throw new NoSuchElementException("Perfil with id: " +id + " does not exist");
         }
-        perfilRepository.deleteById(idPerfil);
+        perfilRepository.deleteById(id);
     }
+
 }

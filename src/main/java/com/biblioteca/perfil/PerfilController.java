@@ -33,8 +33,8 @@ public class PerfilController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<?> deletePerfil(@PathVariable Long idPerfil) {
-        perfilService.deletePerfil(idPerfil);
+    public ResponseEntity<?> deletePerfil(@PathVariable Long id) {
+        perfilService.deletePerfil(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
