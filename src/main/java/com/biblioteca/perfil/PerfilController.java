@@ -37,5 +37,9 @@ public class PerfilController {
         perfilService.deletePerfil(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @PutMapping("{id}")
+    public Perfil updatePerfil(@PathVariable Long id, @RequestBody Perfil perfil){
+        return perfilService.updatePerfil(id, perfil);
+    }
 
 }

@@ -43,9 +43,9 @@ public class PerfilService {
             LOGGER.warn("Telefono {} ya existe ", perfil.getTelefono());
             throw new IllegalArgumentException("Telefono " + perfil.getTelefono() + " already exist.");
         }
-        if (perfil.puntosPremios<0){
-            LOGGER.warn("Error, los premios no pueden ser menor que CERO (0)",perfil.puntosPremios);
-            throw new IllegalArgumentException("Error, reward points cannot be less than zero");
+        if (perfil.getPuntosPremios() == null || perfil.getPuntosPremios() < 0) {
+            LOGGER.warn("Error, los premios no pueden ser menor que CERO (0) o nulos. puntos ingresados: {}",perfil.puntosPremios);
+            throw new IllegalArgumentException("Error, reward points cannot be less than zero or null");
         }
         Long id = perfilRepository.save(perfil).getId();
         LOGGER.info("Profile with ID {} was saved successfully.", id);
@@ -61,5 +61,29 @@ public class PerfilService {
         }
         perfilRepository.deleteById(id);
     }
+    @Transactional
+    public Perfil updatePerfil(Long id, Perfil perfil) {
+        LOGGER.info("Updating Profile with ID {} ", id);
+        Perfil existingProfile = perfilRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("ID does not exist in the repository"));
+        if (perfil.getName() == null){
+            LOGGER.warn("Error, el nombre no puede ser nulo", perfil.getName());
+            throw new IllegalArgumentException("Error, name cannot be null.");
+        }
+        existingProfile.setName(perfil.getName());
+        boolean existTelephone = perfilRepository.existsByTelefonoAndIdIsNot(perfil.getTelefono(),id);
+        if (existTelephone) {
+            LOGGER.warn("Error, telephone {} already exist", perfil.getTelefono());
+            throw new IllegalArgumentException("Error, telephone " +perfil.getTelefono() +" already exist.");
+        }
+        existingProfile.setTelefono(perfil.getTelefono());
+        if (perfil.getPuntosPremios()==null || perfil.getPuntosPremios()<0){
+            LOGGER.warn("Error, los premios no pueden ser menor que CERO (0) o nulos. puntos ingresados: {}",perfil.puntosPremios);
+            throw new IllegalArgumentException("Error, reward points cannot be less than zero or null");
+        }
+        existingProfile.setPuntosPremios(perfil.getPuntosPremios());
 
+        LOGGER.info("New profile data with id " +id +": {} ", perfil);
+        return existingProfile;
+    }
 }
