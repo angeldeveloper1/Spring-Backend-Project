@@ -43,5 +43,10 @@ public class UsuarioController {
     public Usuario updateUsuario(@PathVariable Long id, @RequestBody Usuario usuario){
         return usuarioService.updateUsuario(id, usuario);
     }
+
+//    @PutMapping("{usuarioId/libros/{libroId}}")
+//    public Usuario agregarLibroAUsiario(@PathVariable Long usuarioId, @PathVariable Long libroId){
+//        return usuarioService.agregarLibroAUsuario(usuarioId,libroId);
+//    }
 }
 

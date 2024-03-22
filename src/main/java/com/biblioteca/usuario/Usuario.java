@@ -63,6 +63,15 @@ public class Usuario {
         this.password = password;
     }
 
+    public List<Libro> getLibros() {
+        return libros;
+    }
+
+    public void setLibros(List<Libro> libros) {
+        this.libros = libros;
+    }
+
+
     public Perfil getPerfil() {
         return perfil;
     }
