@@ -77,3 +77,16 @@ VALUES (9, 'Usuario9', 'usuario9@example.com', '2030-09-09', 'password9', 9);
 -- Insertar datos para usuario 10
 INSERT INTO usuario (id_usuario, name, email, birthdate, password, id_perfil)
 VALUES (10, 'Usuario10', 'usuario10@example.com', '2035-10-10', 'password10', 10);
+
+INSERT INTO libro (id_libro, titulo, autor)
+VALUES
+    (1, 'El señor de los anillos', 'J.R.R. Tolkien'),
+    (2, 'Cien años de soledad', 'Gabriel García Márquez'),
+    (3, 'Harry Potter y la piedra filosofal', 'J.K. Rowling'),
+    (4, '1984', 'George Orwell'),
+    (5, 'Orgullo y prejuicio', 'Jane Austen'),
+    (6, 'Don Quijote de la Mancha', 'Miguel de Cervantes'),
+    (7, 'Crimen y castigo', 'Fyodor Dostoevsky'),
+    (8, 'El principito', 'Antoine de Saint-Exupéry'),
+    (9, 'Matar un ruiseñor', 'Harper Lee'),
+    (10, 'El gran Gatsby', 'F. Scott Fitzgerald');
