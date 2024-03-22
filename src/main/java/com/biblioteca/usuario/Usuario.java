@@ -1,9 +1,12 @@
 package com.biblioteca.usuario;
 
+import com.biblioteca.libro.Libro;
 import com.biblioteca.perfil.Perfil;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 @Entity
 @Table(name = "usuario")
@@ -35,6 +38,20 @@ public class Usuario {
             unique = true
     )
     private Perfil perfil;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "prestamos",
+            joinColumns = @JoinColumn(
+                    name = "id_usuario",
+                    referencedColumnName = "id_usuario"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "id_libro",
+                    referencedColumnName = "id_libro"
+            )
+    )
+    private List<Libro> libros = new ArrayList<>();
 
     public Usuario() {
     }
