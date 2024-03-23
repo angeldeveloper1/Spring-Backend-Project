@@ -29,6 +29,18 @@ public class LibroService {
                 .orElseThrow(() -> new NoSuchElementException("El libro con ID: " + idLibro +" no existe."));
         return libroExiste;
     }
+    public Long createLibro(Libro libro) {
+        LOGGER.info("Creating book {}", libro);
+        boolean bookNamesExists = libroRepository.existsByTituloAndAutor(libro.getTitulo(),libro.getAutor());
+        if (bookNamesExists){
+            LOGGER.warn("Book with title and author {} already exists", libro);
+            throw new IllegalArgumentException("Titulo " + libro.getTitulo() + " autor " + libro.getAutor() + " already exists");
+        }
+        LOGGER.info("Book {} created", libro);
+        Long id = libroRepository.save(libro).getId();
+        return id;
+
+    }
 
     public void deleteLibro(Long idLibro) {
         LOGGER.info("Deleting libro with ID {}", idLibro);
@@ -40,4 +52,5 @@ public class LibroService {
         LOGGER.info("Libro with ID {} deleted.", idLibro);
         libroRepository.deleteById(idLibro);
     }
+
 }

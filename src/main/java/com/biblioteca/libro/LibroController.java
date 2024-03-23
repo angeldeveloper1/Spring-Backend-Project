@@ -26,6 +26,12 @@ public class LibroController {
         return libroService.getLibro(idLibro);
     }
 
+    @PostMapping
+    public ResponseEntity<Long> createLibro(@RequestBody Libro libro) {
+        Long idLibro = libroService.createLibro(libro);
+        return new ResponseEntity<>(idLibro,HttpStatus.CREATED);
+    }
+
     @DeleteMapping("{idLibro}")
     public ResponseEntity<?> deleteLibro(@PathVariable Long idLibro) {
         libroService.deleteLibro(idLibro);
