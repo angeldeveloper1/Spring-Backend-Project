@@ -52,5 +52,20 @@ public class LibroService {
         LOGGER.info("Libro with ID {} deleted.", idLibro);
         libroRepository.deleteById(idLibro);
     }
+    @Transactional
+    public Libro updateLibro(Long idLibro, Libro actualizarLibro) {
+        LOGGER.info("Updating Libro with ID {} ", idLibro);
+        Libro libroExistente = libroRepository.findById(idLibro)
+                .orElseThrow(() -> new NoSuchElementException("No existe ese libro con ID " +idLibro));
+        boolean libroExists = libroRepository.existsByTituloAndAutorAndIdIsNot(actualizarLibro.getTitulo(),actualizarLibro.getAutor(),idLibro);
+        if (libroExists) {
+            LOGGER.warn("Libro with title and author already exists {}", actualizarLibro);
+            throw new IllegalArgumentException("Title " +actualizarLibro.getTitulo() + " and author " +actualizarLibro.getAutor() + " already exist");
+        }
 
+        LOGGER.info("Libro {} updated successfully", actualizarLibro);
+        libroExistente.setTitulo(actualizarLibro.getTitulo());
+        libroExistente.setAutor(actualizarLibro.getAutor());
+        return libroExistente;
+    }
 }

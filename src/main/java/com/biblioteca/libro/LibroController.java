@@ -32,6 +32,10 @@ public class LibroController {
         return new ResponseEntity<>(idLibro,HttpStatus.CREATED);
     }
 
+    @PutMapping("{idLibro}")
+    public Libro updateLibro(@PathVariable Long idLibro, @RequestBody Libro actualizarLibro){
+        return libroService.updateLibro(idLibro,actualizarLibro);
+    }
     @DeleteMapping("{idLibro}")
     public ResponseEntity<?> deleteLibro(@PathVariable Long idLibro) {
         libroService.deleteLibro(idLibro);
