@@ -2,6 +2,7 @@ package com.biblioteca.usuario;
 
 import com.biblioteca.libro.Libro;
 import com.biblioteca.perfil.Perfil;
+import com.biblioteca.prestamo.Prestamo;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -42,6 +43,8 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private List<Libro> libros = new ArrayList<>();
 
+    @OneToMany(mappedBy = "usuario")
+    private List<Prestamo> prestamos = new ArrayList<>();
     public Usuario() {
     }
     public Usuario(Long id, String name, String email, LocalDate birthDate, String password) {
@@ -52,6 +55,13 @@ public class Usuario {
         this.password = password;
     }
 
+    public List<Prestamo> getPrestamos() {
+        return prestamos;
+    }
+
+    public void setPrestamos(List<Prestamo> prestamos) {
+        this.prestamos = prestamos;
+    }
 
     public List<Libro> getLibros() {
         return libros;

@@ -1,9 +1,12 @@
 package com.biblioteca.libro;
 
+import com.biblioteca.prestamo.Prestamo;
 import com.biblioteca.usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -32,6 +35,8 @@ public class Libro {
             referencedColumnName = "id_usuario"
     )
     private Usuario usuario;
+    @OneToMany(mappedBy = "libro")
+    private List<Prestamo> prestamos = new ArrayList<>();
     public Libro() {
     }
 
@@ -39,6 +44,14 @@ public class Libro {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
+    }
+
+    public List<Prestamo> getPrestamos() {
+        return prestamos;
+    }
+
+    public void setPrestamos(List<Prestamo> prestamos) {
+        this.prestamos = prestamos;
     }
 
     public Usuario getUsuario() {
