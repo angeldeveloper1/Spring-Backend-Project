@@ -1,5 +1,7 @@
 package com.biblioteca.libro;
 
+import com.biblioteca.usuario.Usuario;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -23,6 +25,13 @@ public class Libro {
     @Column(name = "autor", nullable = false, length = 100)
     private String autor;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(
+            name = "id_usuario",
+            referencedColumnName = "id_usuario"
+    )
+    private Usuario usuario;
     public Libro() {
     }
 
@@ -30,6 +39,14 @@ public class Libro {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Long getId() {

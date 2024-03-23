@@ -39,18 +39,7 @@ public class Usuario {
     )
     private Perfil perfil;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "prestamos",
-            joinColumns = @JoinColumn(
-                    name = "id_usuario",
-                    referencedColumnName = "id_usuario"
-            ),
-            inverseJoinColumns = @JoinColumn(
-                    name = "id_libro",
-                    referencedColumnName = "id_libro"
-            )
-    )
+    @OneToMany(mappedBy = "usuario")
     private List<Libro> libros = new ArrayList<>();
 
     public Usuario() {
@@ -62,6 +51,7 @@ public class Usuario {
         this.birthDate = birthDate;
         this.password = password;
     }
+
 
     public List<Libro> getLibros() {
         return libros;
