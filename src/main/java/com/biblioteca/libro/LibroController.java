@@ -1,5 +1,6 @@
 package com.biblioteca.libro;
 
+import com.biblioteca.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,5 +41,9 @@ public class LibroController {
     public ResponseEntity<?> deleteLibro(@PathVariable Long idLibro) {
         libroService.deleteLibro(idLibro);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @PutMapping("{idLibro}/prestamos/{idPrestamos}")
+    public Libro agregarPrestamoLibros(@PathVariable Long idLibro, @PathVariable Long idPrestamos){
+        return libroService.agregarPrestamoLibros(idLibro,idPrestamos);
     }
 }

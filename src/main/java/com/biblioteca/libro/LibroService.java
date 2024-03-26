@@ -1,5 +1,8 @@
 package com.biblioteca.libro;
 
+import com.biblioteca.prestamo.Prestamo;
+import com.biblioteca.prestamo.PrestamoRepository;
+import com.biblioteca.usuario.Usuario;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +18,13 @@ import java.util.NoSuchElementException;
 public class LibroService {
     private LibroRepository libroRepository;
     private static final Logger LOGGER = LoggerFactory.getLogger(LibroService.class);
+    private final PrestamoRepository prestamoRepository;
+
     @Autowired
-    public LibroService(LibroRepository libroRepository) {
+    public LibroService(LibroRepository libroRepository,
+                        PrestamoRepository prestamoRepository) {
         this.libroRepository = libroRepository;
+        this.prestamoRepository = prestamoRepository;
     }
     @Transactional(readOnly = true)
     public Page<Libro> findAllLibros(Pageable pageable) {
@@ -67,5 +74,15 @@ public class LibroService {
         libroExistente.setTitulo(actualizarLibro.getTitulo());
         libroExistente.setAutor(actualizarLibro.getAutor());
         return libroExistente;
+    }
+
+    public Libro agregarPrestamoLibros(Long idLibros, Long idPrestamos) {
+        LOGGER.warn("Adding prestamos to book with id {}",idLibros);
+        Libro libroExist = libroRepository.findById(idLibros)
+                .orElseThrow(() -> new NoSuchElementException("User with id " + idLibros + " does not exist"));
+        Prestamo prestamoExist = prestamoRepository.findById(idPrestamos)
+                .orElseThrow(() -> new NoSuchElementException("User with id " + idPrestamos + " does not exist"));
+        prestamoExist.setLibro(libroExist);
+        return libroExist;
     }
 }
