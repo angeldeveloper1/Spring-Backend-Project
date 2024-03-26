@@ -32,14 +32,6 @@ public class PrestamoService {
 
     public Long createPrestamo(Prestamo prestamo) {
         LOGGER.info("Creating prestamo {} ", prestamo);
-        if (prestamo.getUsuario() == null){
-            LOGGER.warn("Error, no se ha proporcionado un usuario para el prestamo");
-            throw new IllegalArgumentException("No existe un usuario para este prestamo");
-        }
-        if (prestamo.getLibro() == null){
-            LOGGER.warn("Error, no se ha proporcionado un libro para el prestamo");
-            throw new IllegalArgumentException("No existe un libro para este prestamo");
-        }
         LocalDate fechaDevolucion = prestamo.getFechaDevolucion();
         LocalDate fechaExpiracion = prestamo.getFechaExpiracion();
         if (fechaDevolucion != null && fechaExpiracion != null && fechaExpiracion.isBefore(fechaDevolucion)){

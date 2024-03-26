@@ -44,9 +44,17 @@ public class UsuarioController {
         return usuarioService.updateUsuario(id, usuario);
     }
 
-//    @PutMapping("{usuarioId/libros/{libroId}}")
-//    public Usuario agregarLibroAUsiario(@PathVariable Long usuarioId, @PathVariable Long libroId){
-//        return usuarioService.agregarLibroAUsuario(usuarioId,libroId);
-//    }
+    @PutMapping("{idUsuario}/perfil/{idPerfil}")
+    public Usuario agregarPerfilUsuario(@PathVariable Long idUsuario, @PathVariable Long idPerfil){
+        return usuarioService.agregarPerfilUsuario(idUsuario, idPerfil);
+    }
+    @PutMapping("{idUsuario}/libros/{idLibro}")
+    public Usuario agregarLibroUsuario(@PathVariable Long idUsuario, @PathVariable Long idLibro){
+        return usuarioService.agregarLibroUsuario(idUsuario,idLibro);
+    }
+    @PutMapping("{idUsuario}/prestamos/{idPrestamos}")
+    public Usuario agregarPrestamoUsuario(@PathVariable Long idUsuario, @PathVariable Long idPrestamos){
+        return usuarioService.agregarPrestamoUsuario(idUsuario,idPrestamos);
+    }
 }
 

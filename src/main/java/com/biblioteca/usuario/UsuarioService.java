@@ -1,5 +1,12 @@
 package com.biblioteca.usuario;
 
+import com.biblioteca.libro.Libro;
+import com.biblioteca.libro.LibroRepository;
+import com.biblioteca.perfil.Perfil;
+import com.biblioteca.perfil.PerfilRepository;
+import com.biblioteca.prestamo.Prestamo;
+import com.biblioteca.prestamo.PrestamoRepository;
+import com.biblioteca.prestamo.PrestamoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +24,19 @@ import java.util.regex.Pattern;
 public class UsuarioService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioService.class);
     private UsuarioRepository usuarioRepository;
+    private final PerfilRepository perfilRepository;
+    private final LibroRepository libroRepository;
+    private final PrestamoRepository prestamoRepository;
+
     @Autowired
-    public UsuarioService(UsuarioRepository usuarioRepository) {
+    public UsuarioService(UsuarioRepository usuarioRepository,
+                          PerfilRepository perfilRepository,
+                          LibroRepository libroRepository,
+                          PrestamoRepository prestamoRepository) {
         this.usuarioRepository = usuarioRepository;
+        this.perfilRepository = perfilRepository;
+        this.libroRepository = libroRepository;
+        this.prestamoRepository = prestamoRepository;
     }
     @Transactional(readOnly = true)
     public Page<Usuario> findAllUsuarios(Pageable pageable) {
@@ -99,5 +116,36 @@ public class UsuarioService {
 
         return userExisting;
 
+    }
+
+    public Usuario agregarPerfilUsuario(Long idUsuario, Long idPerfil) {
+        LOGGER.info("Adding profile to user with id " + idUsuario);
+        Usuario userExist = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() -> new NoSuchElementException("User with id " + idUsuario + " does not exist"));
+        Perfil profileExist = perfilRepository.findById(idPerfil)
+                .orElseThrow(()-> new NoSuchElementException("profile with id " + idPerfil + " does not exist"));
+        userExist.setPerfil(profileExist);
+        LOGGER.info("New user data with id " + idUsuario + ": {} ", userExist);
+        return userExist;
+    }
+
+    public Usuario agregarLibroUsuario(Long idUsuario, Long idLibro) {
+        LOGGER.info("Adding book to user with id {}", idUsuario);
+        Usuario userExist = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() -> new NoSuchElementException("User with id " + idUsuario + " does not exist"));
+        Libro libroExist = libroRepository.findById(idLibro)
+                .orElseThrow(() -> new NoSuchElementException("User with id " + idLibro + " does not exist"));
+        libroExist.setUsuario(userExist);
+        return userExist;
+    }
+
+    public Usuario agregarPrestamoUsuario(Long idUsuario, Long idPrestamos) {
+        LOGGER.warn("Adding prestamos to user with id {}",idUsuario);
+        Usuario userExist = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() -> new NoSuchElementException("User with id " + idUsuario + " does not exist"));
+        Prestamo prestamoExist = prestamoRepository.findById(idPrestamos)
+                .orElseThrow(() -> new NoSuchElementException("User with id " + idPrestamos + " does not exist"));
+        prestamoExist.setUsuario(userExist);
+        return userExist;
     }
 }
